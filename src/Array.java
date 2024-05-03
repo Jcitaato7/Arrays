@@ -20,9 +20,22 @@ public class Array {
         numbers[Count++] = item;
     }
     public int indexOf(int item){
-        for (int i = 0; i < Count; i++){
-            if (numbers[i] == item)
-                return i;
+        //using binary search
+        //first sort the array in asc order
+        sortAscending();
+        int low = 0;
+        int high = Count - 1;
+
+        while (low <= high){
+            int middlePosition = (low + high) / 2;
+            int middleNumber = numbers[middlePosition];
+
+            if (item == middleNumber)
+                return middlePosition;
+            if (item < middleNumber)
+                high = middlePosition - 1;
+            else
+                low = middlePosition + 1;
         }
         return -1;
     }
@@ -67,8 +80,7 @@ public class Array {
     }
 
     public int maxNum(){
-        int largestNum = 0;
-        largestNum = numbers[0];
+        int largestNum = numbers[0];
         for (int i = 0; i < Count; i++){
             if (numbers[i] > largestNum)
                 largestNum = numbers[i];
@@ -77,8 +89,7 @@ public class Array {
     }
 
     public int minNum(){
-        int smallestNum = 0;
-        smallestNum = numbers[0];
+        int smallestNum = numbers[0];
         for (int i = 0; i < Count; i++){
             if (numbers[i] < smallestNum)
                 smallestNum = numbers[i];
@@ -108,9 +119,8 @@ public class Array {
     public void sortAscending(){
         for (int i = 0; i < Count; i++){
             for (int j = i + 1; j < Count; j++){
-                int temp = 0;
                 if (numbers[i] > numbers[j]){
-                    temp = numbers[i];
+                    int temp = numbers[i];
                     numbers[i] = numbers[j];
                     numbers[j] = temp;
                 }
@@ -120,9 +130,8 @@ public class Array {
     public void sortDesc(){
         for (int i = 0; i < Count; i++){
             for (int j = i + 1; j < Count; j++){
-                int temp = 0;
                 if (numbers[i] < numbers[j]){
-                    temp = numbers[i];
+                    int temp = numbers[i];
                     numbers[i] = numbers[j];
                     numbers[j] = temp;
                 }
@@ -130,9 +139,21 @@ public class Array {
         }
     }
     public boolean contains(int item){
-        for (int i = 0; i < Count; i++){
-            if (numbers[i] == item)
+        //use binary search
+        sortAscending();
+        int low = 0;
+        int high = Count - 1;
+
+        while (low <= high){
+            int middlePosition = (low + high) / 2;
+            int middleNumber = numbers[middlePosition];
+
+            if (item == middleNumber)
                 return true;
+            if (item < middleNumber)
+                high = middlePosition - 1;
+            else
+                low = middlePosition + 1;
         }
         return false;
     }
@@ -176,10 +197,9 @@ public class Array {
             if (j + 1 < c.length) {
                 for (int h = j + 1; h < c.length; h++)
                 {
-                    int temp = 0;
                     if (c[j] > c[h])
                     {
-                        temp = c[j];
+                        int temp = c[j];
                         c[j] = c[h];
                         c[h] = temp;
                     }
